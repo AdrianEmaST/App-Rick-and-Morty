@@ -13,7 +13,12 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         if (data.name) {
-          setCharacters((oldChars) => [...oldChars, data]);
+          let repeated = characters.find((e) => e.id === data.id);
+          if (repeated) {
+            alert("Ya esta añadido");
+          } else {
+            setCharacters((oldChars) => [...oldChars, data]);
+          }
         } else {
           window.alert("No hay personajes con ese ID");
         }
@@ -23,11 +28,15 @@ function App() {
   const onClose = (id) => {
     setCharacters(characters.filter((pj) => pj.id !== id));
   };
+  // Extra: Boton random
+  function random () {
+    let randomPj = Math.floor(Math.random() * 826);
+    onSearch(randomPj);
+  }
 
   return (
     <div className="App">
-      <Nav onSearch={onSearch} />
-
+      <Nav onSearch={onSearch} random={random}/>
       <div className="cards1">
         <Cards characters={characters} onClose={onClose} />
       </div>

@@ -7,7 +7,7 @@ export default function Nav(props) {
   return (
     <div className={styles.container}>
       <h2><span>Rick And Morty App</span></h2>
-      <SearchBar onSearch={props.onSearch}/>
+      <SearchBar onSearch={props.onSearch} random={props.random}/>
     </div>
   )
 }

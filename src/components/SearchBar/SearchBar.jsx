@@ -15,6 +15,7 @@ export default function SearchBar(props) {
     <div className={styles.container}>
       <button onClick={() => props.onSearch(txtinput)}>+</button>
       <input type="search" onChange={handleChange} placeholder="Agrega tu personaje"></input>
+      <button onClick={props.random}>Agrego un Random xd</button>
     </div>
   );
 }
