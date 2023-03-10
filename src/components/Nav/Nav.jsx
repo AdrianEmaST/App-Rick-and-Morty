@@ -1,13 +1,24 @@
-import React from 'react';
-import styles from './Nav.module.css';
-import stycomp from 'styled-components'
-import SearchBar from '../SearchBar/SearchBar'
+import React from "react";
+import styles from "./Nav.module.css";
+import stycomp from "styled-components";
+import SearchBar from "../SearchBar/SearchBar";
+import { Link } from "react-router-dom";
 
 export default function Nav(props) {
   return (
     <div className={styles.container}>
-      <h2><span>Rick And Morty App</span></h2>
-      <SearchBar onSearch={props.onSearch} random={props.random}/>
+      
+        <Link to="/home">
+        <h2>
+          <span>Rick And Morty App</span>
+          </h2>
+        </Link>
+      
+      <Link to="/about">
+        <span>About me</span>
+      </Link>
+
+      <SearchBar onSearch={props.onSearch} random={props.random} />
     </div>
-  )
+  );
 }
