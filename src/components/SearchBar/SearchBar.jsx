@@ -6,7 +6,7 @@ export default function SearchBar(props) {
   const [txtinput, setTxtinput] = useState ('')
 
   const handleChange = (e) => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
     setTxtinput(e.target.value)
 
   }

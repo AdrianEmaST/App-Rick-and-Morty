@@ -1,13 +1,13 @@
 import "./App.css";
-import Card from "./components/Card/Card";
 import Cards from "./components/Cards/Cards";
-import SearchBar from "./components/SearchBar/SearchBar";
 import Detail from "./components/Detail/Detail";
 import Error from "./components/Error/Error";
 import Nav from "./components/Nav/Nav";
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import Form from "./components/Form/Form";
+import { useState, useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import About from "./components/About/About";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -38,15 +38,42 @@ function App() {
     onSearch(randomPj);
   }
 
+  const location = useLocation();
+  //console.log(location);
+
+  const navigate = useNavigate();
+  const [access, setAccess] = useState(false);
+  const username = "ejemplo@gmail.com";
+  const password = "1password";
+
+  function login(userData) {
+    if (userData.password === password && userData.username === username) {
+      setAccess(true);
+      navigate("/home");
+    }
+  }
+  useEffect(() => {
+    !access && navigate('/');
+ }, [access]);
+
+ function logout() {
+  setAccess(false);
+ }
+
   return (
     <div className="App">
-      <Nav onSearch={onSearch} random={random} />
+      {location.pathname !== "/" && <Nav onSearch={onSearch} random={random} logout={logout} />}
 
       <Routes>
-        <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
+        <Route path="/" element={<Form login={login} />} />
+        <Route
+          path="/home"
+          element={<Cards characters={characters} onClose={onClose} />}
+        />
         <Route path="/about" element={<About />} />
-        <Route path={"/detail/:detailId"} element={<Detail />} />
-        <Route path={"*"} element={<Error />} />
+        <Route path="/detail/:detailId" element={<Detail />} />
+        <Route path="*" element={<Error />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </div>
   );
